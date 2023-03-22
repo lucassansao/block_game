@@ -16,114 +16,25 @@
 <!-- FONT: https://fonts.google.com/specimen/Press+Start+2P -->
 
 <body>
+    <h1 id="title">Block Game</h1>
+    <h2>How to Play?</h2>
+    <p>First: Choose Your Level! Easy (10 Minutes)? Medium (5 Minutes) or Hard (2 Minutes)?</p>
+    <p>Second: Eat as Much Food as You Can, to Make Your Block GROW!</p>
+    <p>Third: Don't Forget, If the Block Passes Completely Off the Screen, <span>GAME OVER</span></p>
+    <div class="timer">
+        <button id="easy">Easy</button>
+        <button id="medium">Medium</button>
+        <button id="hard">Hard</button>
+    </div>
+    </br>
     <div id="container">
         <div id="gameover">Game Over!<br><a onClick="window.location.reload()" href="#"><i class="fa-solid fa-play"></i></a></div>
-        <canvas id="myCanvas" width="1000" height="500"></canvas>
-        <!-- <div id="score">
-            <div>Current Score:<span id="current">0</span></div>
-            <div>High Score:<span id="highest">3</span>
-        </div> -->
+        <canvas id="screen" width="800" height="600"></canvas>
+    </div>
+    <div class="score">
+        <p>Score:</p>
+        <p id="score">0</p>
     </div>
 </body>
-<script>
-    $(document).ready(function() {
-        
-        var canvas = $("#myCanvas")[0];
-        var ctx = canvas.getContext("2d");
-        var w = $("#myCanvas").width();
-        var h = $("#myCanvas").height();
-        var blockSize = 10;
-        var foodBlock;
-        var block;
-        var d = "right";
-        var gameloop = setInterval(update, 100);
-       
-        function update() {
-            if (d=="right")
-                block.x = block.x;
-            else if (d == "left")
-                block.x = block.x;
-            else if (d == "up") 
-                block.y = block.y;
-            else if (d == "down")
-                block.y = block.y;
-       
-            check_borders();
-            check_foodBlock();
-            blank();
-            paint_cell(foodBlock.x, foodBlock.y, "#119DA4");
-            paint_cell(block.x, block.y, "#FFC857");
-        }
-       
-        function showGameOver() {
-            $('#gameover').fadeIn()
-        }
-       
-        function placefoodBlock() {
-            foodBlock = {
-                x:Math.round(Math.random()*(w-blockSize)/blockSize),
-                y:Math.round(Math.random()*(h-blockSize)/blockSize)
-            }
-        }
-        placefoodBlock();
-       
-        function placeblock() {
-            block = {
-                x:Math.round(Math.random()*(w-blockSize)/blockSize),
-                y:Math.round(Math.random()*(h-blockSize)/blockSize)   
-            }
-        }
-        placeblock();
-
-        function check_borders() {
-            if (block.x < 0 || block.x > (w-blockSize)/blockSize || block.y < 0 || block.y > (h-blockSize)/blockSize) {
-                clearInterval(gameloop);
-                showGameOver();
-                
-            }
-        }
-       
-        function paint_cell(x,y, color){
-            ctx.fillStyle=color;
-            ctx.fillRect(x*blockSize,y*blockSize,blockSize,blockSize);
-            ctx.strokeStyle="#F6F6F6"; //BLOCK BORDER COLOR;
-            ctx.strokeRect(x*blockSize,y*blockSize,blockSize,blockSize); //BLOCK BORDER SIZE;
-        }
-
-        function blank(){
-            ctx.fillStyle = "#1F2041";
-            ctx.fillRect(0, 0, w, h);
-        }
-
-       
-       function check_foodBlock() {
-            if (foodBlock.x == block.x && foodBlock.y == block.y) {
-                placefoodBlock();
-            }
-        }
-        check_foodBlock();
-        
-       
-        $(document).keydown(function(e){
-            var key = e.which;
-            if(key == "37") {
-                block.x -= 1;
-                // d = "LEFT";
-            }
-            else if(key == "38") {
-                block.y -= 1;
-                // d = "20";
-            }
-            else if(key == "39") {
-                block.x += 1;
-            // d = "RIGHT";
-            }
-            else if(key=="40") {
-                block.y += 1;
-                // d = "DOWN";
-            }
-        });
-       
-    });
-</script>
+<script src="function_game.js"></script>
 </html>
